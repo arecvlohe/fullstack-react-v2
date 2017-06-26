@@ -1,21 +1,32 @@
 import React, { Component } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import { compose } from "recompose";
-import axios from "axios";
+
+import { fetchTodos } from "../../store/actions";
+import { getTodos } from "../../store/selectors";
+
+const mapStateToProps = state => {
+  return {
+    todos: getTodos(state)
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ fetchTodos }, dispatch);
+};
 
 const handlers = WrappedComponent =>
   class extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        input: "",
-        todos: []
+        input: ""
       };
     }
 
     componentDidMount() {
-      axios.get("http://localhost:3000/api").then(({ data }) => {
-        this.setState({ todos: data.todos });
-      });
+      this.props.fetchTodos();
     }
 
     render() {
@@ -23,4 +34,4 @@ const handlers = WrappedComponent =>
     }
   };
 
-export default compose(handlers);
+export default compose(connect(mapStateToProps, mapDispatchToProps), handlers);
