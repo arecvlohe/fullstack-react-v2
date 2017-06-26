@@ -13,13 +13,17 @@ module.exports = function(app, db) {
   });
 
   api.get("/", (req, res) => {
-    db.collection("todos").find({}).toArray((err, docs) => {
+    db.collection("todos").find({}).toArray((err, todos) => {
       if (err) {
         error(err);
         res.error(err);
       } else {
-        info("requested todos: %o", docs);
-        res.json(docs);
+        info("requested todos: %o", todos);
+        res.json({
+          status: 200,
+          success: "Todos found",
+          todos: todos
+        });
       }
     });
   });
@@ -28,18 +32,17 @@ module.exports = function(app, db) {
     db
       .collection("todos")
       .findOne({ _id: ObjectId(req.params.id) })
-      .then(doc => {
+      .then(todo => {
+        info("Requested todo: %o", todo);
         res.json({
           status: 200,
           success: "Todo found",
-          document: doc
+          todo: todo
         });
       })
-      .catch(e => {
-        res.json({
-          status: 500,
-          error: e
-        });
+      .catch(err => {
+        error(err);
+        res.error(err);
       });
   });
 
@@ -48,24 +51,22 @@ module.exports = function(app, db) {
     db
       .collection("todos")
       .insertOne({ title: title, completed: completed })
-      .then(doc => {
+      .then(todo => {
+        info("Added todo %o", todo);
         res.json({
           status: 200,
           success: "Todo saved",
-          document: doc
+          todo: todo
         });
       })
-      .catch(e => {
-        res.json({
-          status: 500,
-          error: e
-        });
+      .catch(err => {
+        error(err);
+        res.error(err);
       });
   });
 
   api.put("/:id", (req, res) => {
     const { params: { id }, body: { title, completed } } = req;
-    log(id, title, completed);
     db
       .collection("todos")
       .findOneAndUpdate(
@@ -73,19 +74,17 @@ module.exports = function(app, db) {
         { $set: { title: title, completed: completed } },
         { returnOriginal: false }
       )
-      .then(doc => {
+      .then(todo => {
+        info("Updated todo %o", todo);
         res.json({
           status: 200,
           success: "Todo updated",
-          document: doc
+          todo: todo
         });
       })
       .catch(err => {
-        res.json({
-          status: 500,
-          error: "Document was not updated",
-          message: err
-        });
+        error(err);
+        res.error(err);
       });
   });
 
@@ -94,17 +93,17 @@ module.exports = function(app, db) {
     db
       .collection("todos")
       .findOneAndDelete({ _id: ObjectId(id) })
-      .then(r => {
+      .then(todo => {
+        info("Deleted todo %o", todo);
         res.json({
           status: 200,
-          success: "Todo deleted"
+          success: "Todo deleted",
+          todo: todo
         });
       })
       .catch(err => {
-        res.json({
-          status: 500,
-          error: err
-        });
+        error(err);
+        res.error(err);
       });
   });
 
