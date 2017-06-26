@@ -2,7 +2,7 @@ import React from "react";
 import DOM from "react-dom";
 import { AppContainer } from "react-hot-loader";
 
-const Root = () => <div>Hello, Suncoast!</div>;
+import App from "./routes";
 
 const render = Component => {
   DOM.render(
@@ -13,10 +13,11 @@ const render = Component => {
   );
 };
 
-render(Root);
+render(App);
 
 if (module.hot) {
-  module.hot.accept(Root, () => {
-    render(Root);
+  module.hot.accept("./routes", () => {
+    const App = require("./routes").default;
+    render(App);
   });
 }
