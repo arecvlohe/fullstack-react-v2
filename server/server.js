@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const error = require("debug")("app:error");
 const info = require("debug")("app:info");
@@ -9,6 +10,7 @@ const init = require("./db");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 
 init((err, db) => {
   if (err) {
