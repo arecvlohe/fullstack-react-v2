@@ -27,6 +27,7 @@ module.exports = {
     hot: true,
     contentBase: path.resolve(__dirname, "dist"),
     publicPath: "/",
+    historyApiFallback: true,
     stats: {
       modules: false
     }
