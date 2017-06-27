@@ -1,16 +1,15 @@
-import {
-  FETCH_TODOS_REQUEST,
-  FETCH_TODOS_SUCCESS,
-  FETCH_TODOS_FAILURE,
-  ADD_TODO_REQUEST,
-  ADD_TODO_SUCCESS,
-  ADD_TODO_FAILURE
-} from "../types/todos";
+import { FETCH_TODOS_SUCCESS, FETCH_TODO_SUCCESS } from "../types/todos";
 
-export default function todos(state = [], { type, payload = null }) {
+export default function todos(
+  state = { list: [], current: {} },
+  { type, payload = null }
+) {
   switch (type) {
     case FETCH_TODOS_SUCCESS: {
-      return payload;
+      return Object.assign({}, state, { list: payload });
+    }
+    case FETCH_TODO_SUCCESS: {
+      return Object.assign({}, state, { current: payload });
     }
     default: {
       return state;

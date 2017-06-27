@@ -9,7 +9,7 @@ export default function Home({ handleDelete, todos }) {
         return (
           <div key={todo._id + idx}>
             {todo.title}{" "}
-            <span>Edit</span>{" "}
+            <Link to={`/${todo._id}`}>Edit</Link>{" "}
             <span onClick={() => handleDelete(todo._id)}>Delete</span>
           </div>
         );

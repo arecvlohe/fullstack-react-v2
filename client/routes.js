@@ -6,6 +6,7 @@ const history = createBrowserHistory();
 
 import Home from "./views/Home";
 import AddTodo from "./views/AddTodo";
+import EditTodo from "./views/EditTodo";
 
 export default () =>
   <BrowserRouter>
@@ -13,6 +14,7 @@ export default () =>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/new" component={AddTodo} />
+        <Route path="/:id" component={EditTodo} />
       </Switch>
     </main>
   </BrowserRouter>;
