@@ -1,21 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import Header from "../../components/Header";
+import Button from "../../components/Button";
+import List from "../../components/List";
+
 export default function Home({ handleDelete, todos }) {
   return (
     <div>
-      <h1>Todos</h1>
-      {todos.map((todo, idx) => {
-        return (
-          <div key={todo._id + idx}>
-            {todo.title}{" "}
-            <Link to={`/${todo._id}`}>Edit</Link>{" "}
-            <span onClick={() => handleDelete(todo._id)}>Delete</span>
-          </div>
-        );
-      })}
+      <List items={todos} handleDelete={handleDelete} />
       <br />
-      <Link to="/new">Add Todo</Link>
+      <Button component={Link} to="/new">
+        Add Todo
+      </Button>
     </div>
   );
 }
