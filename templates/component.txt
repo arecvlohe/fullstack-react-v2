@@ -1,0 +1,5 @@
+import React from 'react'
+
+export default function {{properCase view}}() {
+  return <div>{{properCase view}} View</div>
+}

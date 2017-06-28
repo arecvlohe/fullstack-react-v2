@@ -1,0 +1,4 @@
+import {{properCase view}} from "./component";
+import enhance from "./container";
+
+export default enhance({{properCase view}});
