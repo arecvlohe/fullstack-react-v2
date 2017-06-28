@@ -10,7 +10,7 @@ export default function Home({ handleDelete, todos }) {
     <div>
       <List items={todos} handleDelete={handleDelete} />
       <br />
-      <Button component={Link} to="/new">
+      <Button component={Link} to="/new" primary={true}>
         Add Todo
       </Button>
     </div>

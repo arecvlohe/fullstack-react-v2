@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+import colors from "../colors";
+
 function List({ items = [], handleDelete, className }) {
   return (
     <div className={className}>
@@ -27,26 +29,31 @@ function List({ items = [], handleDelete, className }) {
 export default styled(List)`
   padding: 20px 0px;
   .item {
-    color: #222;
+    color: lightgray;
     padding: 10px 10px;
-    margin-top: 10px;
-    border: 1px solid #222;
+    border-top: 1px solid gainsboro;
     display: flex;
     justify-content: space-between;
-    &:last-child {
-      border-bottom: 1px solid #222;
-    }
     &-title {
       text-decoration: none;
-      color: #222;
+      color: lightgray;
       text-transform: uppercase;
+      transition: color .3s ease-in-out 0s;
       &:visited, &:focus, &:active {
-        color: #222
+        color: lightgray;
+      }
+      &:hover {
+        color: ${() => colors.coral};
       }
     }
+    &:last-child {
+      border-bottom: 1px solid lightgray;
+    }
     &-delete {
+      transition: color .3s ease-in-out 0s;
       &:hover {
-        cursor: pointer
+        cursor: pointer;
+        color: ${() => colors.black};
       }
     }
   }

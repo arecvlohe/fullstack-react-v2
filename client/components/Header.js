@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import colors from "../colors";
+
 export default styled.h1`
-  color: #222;
+  color: ${() => colors.turquoise};
 `;

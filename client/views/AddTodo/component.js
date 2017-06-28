@@ -1,20 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function AddTodo({ handleUpdateForm, handleSubmit, title }) {
+import Button from "../../components/Button";
+import Form from "../../components/Form";
+import StyledLink from "../../components/Link";
+
+export default function AddTodo({ handleUpdateForm, handleSubmit, ...props }) {
   return (
     <div>
-      <Link to="/">Back</Link>
-      <h1>Add Todo</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          name="title"
-          onChange={handleUpdateForm}
-          type="text"
-          value={title}
-        />
-        <button type="submit">Add Todo</button>
-      </form>
+      <StyledLink to="/" component={Link}>
+        Back
+      </StyledLink>
+      <Form
+        submitText="Add Todo"
+        handleSubmit={handleSubmit}
+        inputs={[
+          <input
+            name="title"
+            onChange={handleUpdateForm}
+            placeholder="ex. Buy groceries"
+            type="text"
+            value={props[this.name]}
+          />
+        ]}
+      />
     </div>
   );
 }
